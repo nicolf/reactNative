@@ -2,7 +2,7 @@ import { TextInput, View } from 'react-native';
 
 import { styles } from './styles';
 
-const Input = (borderColor, onHandleFocus, onHandleBlur, onHandleChangeText, value, ...props) => {
+const Input = ({borderColor, onHandleFocus, onHandleBlur, onHandleChangeText, value, ...props}) => {
   return (
     <View style={styles.container}>
       <TextInput

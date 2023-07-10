@@ -18,8 +18,8 @@ export default function App() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
-        <Header title="Categories" />
-        {isCategorySelected ? <Products onHandleGoBack={onHandleNavigate} /> : <Categories onSelectedCategory={onHandleSelectCategory} />}
+        <Header title={headerTitle} />
+        {isCategorySelected ? <Products onHandleGoBack={onHandleNavigate} categoryId={selectedCategory} /> : <Categories onSelectedCategory={onHandleSelectCategory} />}
       </View>
     </SafeAreaView>
   );
