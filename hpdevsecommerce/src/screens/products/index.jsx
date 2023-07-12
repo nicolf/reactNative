@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View, Text, Button, TouchableOpacity } from 'react-native';
+import { View, Text, Button, TouchableOpacity, ImageBackground } from 'react-native';
 import { Input } from '../../components';
 import { COLORS } from '../../themes';
 import styles from './styles';
@@ -21,20 +21,19 @@ const Products = ({ onHandleGoBack, categoryId }) => {
   const filteredProductsByCategory = PRODUCTS.filter((product) => product.categoryId === categoryId);
 
   const filterBySearch = (query) => {
-    let updatedProductList = [...filteredProductsByCategory]
-    
-    updatedProductList = updatedProductList.filter((product) => {
-      return product.name.toLowerCase().indexOf(query.toLowerCase()) != -1
-    })
+    let updatedProductList = [...filteredProductsByCategory];
 
-    setFilteredProducts(updatedProductList)
-  }
+    updatedProductList = updatedProductList.filter((product) => {
+      return product.name.toLowerCase().indexOf(query.toLowerCase()) != -1;
+    });
+
+    setFilteredProducts(updatedProductList);
+  };
 
   const clearSearch = () => {
     setSearch('');
     setFilteredProducts([]);
-  }
-
+  };
 
   return (
     <View style={styles.container}>
@@ -54,12 +53,33 @@ const Products = ({ onHandleGoBack, categoryId }) => {
         {search.length > 0 && <Ionicons onPress={clearSearch} name="close" size={30} color={COLORS.black} />}
       </View>
       <FlatList
+        style={styles.products}
         data={search.length > 0 ? filteredProducts : filteredProductsByCategory}
-        renderItem={({ item }) => <Text>{item.name}</Text>}
+        renderItem={({ item }) => (
+          <TouchableOpacity onPress={() => null} style={styles.productContainer}>
+            <ImageBackground
+              source={{ uri: item.image }}
+              style={[styles.productImage, { backgroundColor: categoryId.color }]}
+              resizeMethod="resize"
+              resizeMode="contain"
+            />
+            <View style={styles.productDetail}>
+              <Text style={styles.productName} numberOfLines={1} ellipsizeMode="tail">
+                {item.name}
+              </Text>
+              <Text style={styles.productPrice}>{`${item.currency.code} ${item.price}`}</Text>
+            </View>
+          </TouchableOpacity>
+        )}
         keyExtractor={(item) => item.id.toString()}
+        contentContainerStyle={styles.productsContent}
+        numColumns={2}
+        showsVerticalScrollIndicator={false}
       />
       {filteredProducts.length === 0 && search.length > 0 && (
-        <View style={styles.notFound}><Text style={styles.notFoundText}>No products found</Text></View>
+        <View style={styles.notFound}>
+          <Text style={styles.notFoundText}>No products found</Text>
+        </View>
       )}
     </View>
   );

@@ -1,15 +1,13 @@
 import { StyleSheet } from 'react-native';
-import { COLORS } from '../../themes';
+import { COLORS, FONTS } from '../../themes';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginHorizontal: 20,
-    gap: 10
+    marginHorizontal: 15
   },
   header: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
     gap: 5
   },
@@ -20,7 +18,8 @@ const styles = StyleSheet.create({
   },
   goBackText: {
     fontSize: 14,
-    color: COLORS.text
+    color: COLORS.text,
+    fontFamily: FONTS.regular
   },
   products: {
     flex: 1
@@ -31,6 +30,33 @@ const styles = StyleSheet.create({
   },
   notFoundText: {
     flex: 1,
+    fontFamily: FONTS.regular
+  },
+  productsContent: {
+    paddingVertical: 25,
+    gap: 15
+  },
+  productContainer: {
+    backgroundColor: COLORS.background,
+    borderRadius: 10,
+    width: '45%',
+    marginHorizontal: 10
+  },
+  productImage: {
+    width: '100%',
+    height: 150
+  },
+  productDetail: {
+    padding: 10,
+    gap: 5
+  },
+  productName: {
+    fontSize: 14,
+    fontFamily: FONTS.regular
+  },
+  productPrice: {
+    fontSize: 15,
+    fontFamily: FONTS.bold
   }
 });
 
