@@ -1,9 +1,7 @@
 import { useFonts } from 'expo-font';
-import { useState } from 'react';
 import { SafeAreaView, StyleSheet, View, Text, Button, ActivityIndicator } from 'react-native';
-import { Categories, Products } from './screens';
-import { Header } from './components';
 import { COLORS, FONTS } from './themes';
+import RootNavigator from './navigations';
 
 export default function App() {
   const [loaded] = useFonts({
@@ -12,17 +10,6 @@ export default function App() {
     [FONTS.medium]: require('../assets/fonts/Poppins-Medium.ttf'),
     [FONTS.light]: require('../assets/fonts/Poppins-Light.ttf')
   });
-  const [isCategorySelected, setIsCategorySelected] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const headerTitle = isCategorySelected ? 'Products' : 'Categories';
-  const onHandleSelectCategory = (categoryId) => {
-    setSelectedCategory(categoryId);
-    setIsCategorySelected(!isCategorySelected);
-  };
-  const onHandleNavigate = () => {
-    setIsCategorySelected(!isCategorySelected);
-    setSelectedCategory(null);
-  };
 
   if (!loaded) {
     return (
@@ -34,14 +21,7 @@ export default function App() {
   }
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.container}>
-        <Header title={headerTitle} />
-        {isCategorySelected ? (
-          <Products onHandleGoBack={onHandleNavigate} categoryId={selectedCategory} />
-        ) : (
-          <Categories onSelectedCategory={onHandleSelectCategory} />
-        )}
-      </View>
+      <RootNavigator />
     </SafeAreaView>
   );
 }

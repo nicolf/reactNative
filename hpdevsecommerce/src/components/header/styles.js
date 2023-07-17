@@ -18,7 +18,28 @@ export const styles = StyleSheet.create({
 
     elevation: 5
   },
+  tabletContainer: {
+    marginTop: StatusBar.currentHeight,
+    backgroundColor: COLORS.primary,
+    height: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5
+  },
   title: {
+    fontSize: 20,
+    color: COLORS.text,
+    fontFamily: FONTS.bold
+  },
+  tabletTitle: {
     fontSize: 20,
     color: COLORS.text,
     fontFamily: FONTS.bold
