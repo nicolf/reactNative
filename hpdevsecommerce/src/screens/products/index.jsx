@@ -7,7 +7,8 @@ import { Ionicons } from '@expo/vector-icons';
 import PRODUCTS from '../../constants/data/products.json';
 import { FlatList } from 'react-native';
 
-const Products = ({ onHandleGoBack, categoryId }) => {
+const Products = ({ navigation, route }) => {
+  const { categoryId, color } = route.params;
   const [search, setSearch] = useState('');
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [borderColor, setBorderColor] = useState(COLORS.primary);
@@ -35,12 +36,12 @@ const Products = ({ onHandleGoBack, categoryId }) => {
     setFilteredProducts([]);
   };
 
+  const onSelectProduct = ({ productId, name, color }) => {
+    navigation.navigate('ProductDetail', { productId, name, color });
+  };
+
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.goBack} onPress={onHandleGoBack}>
-        <Ionicons name="arrow-back" size={30} color={COLORS.black} />
-        <Text style={styles.goBackText}>Go back</Text>
-      </TouchableOpacity>
       <View style={styles.header}>
         <Input
           onHandleBlur={onHandleBlur}
@@ -56,10 +57,13 @@ const Products = ({ onHandleGoBack, categoryId }) => {
         style={styles.products}
         data={search.length > 0 ? filteredProducts : filteredProductsByCategory}
         renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => null} style={styles.productContainer}>
+          <TouchableOpacity
+            onPress={() => onSelectProduct({ productId: item.id, name: item.name, color: color })}
+            style={styles.productContainer}
+          >
             <ImageBackground
               source={{ uri: item.image }}
-              style={[styles.productImage, { backgroundColor: categoryId.color }]}
+              style={[styles.productImage, { backgroundColor: color }]}
               resizeMethod="resize"
               resizeMode="contain"
             />

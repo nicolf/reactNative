@@ -5,8 +5,11 @@ import CATEGORIES from '../../constants/data/categories.json';
 import { ORIENTATION } from '../../constants/orientation';
 import useOrientation from '../../hooks/useOrientation';
 
-const Categories = ({ onSelectedCategory }) => {
+const Categories = ({ navigation, route }) => {
   const orientation = useOrientation();
+  const onSelectCategory = ({ categoryId, color, name }) => {
+    navigation.navigate('Products', { categoryId, color, name });
+  };
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
@@ -15,7 +18,9 @@ const Categories = ({ onSelectedCategory }) => {
           renderItem={({ item }) => (
             <CategoryItem
               {...item}
-              onSelectedCategory={onSelectedCategory}
+              onSelectCategory={() =>
+                onSelectCategory({ categoryId: item.id, color: item.backgroundColor, name: item.name })
+              }
               style={orientation === ORIENTATION.LANDSCAPE ? styles.categoryItemLandscape : {}}
             />
           )}
