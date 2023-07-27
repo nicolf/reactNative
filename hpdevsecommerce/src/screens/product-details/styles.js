@@ -3,12 +3,12 @@ import { COLORS, FONTS } from '../../themes';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 1
   },
   containerImage: {
     borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
-  },  
+    borderBottomRightRadius: 20
+  },
   image: {
     width: '100%',
     height: 200
@@ -32,8 +32,7 @@ const styles = StyleSheet.create({
   },
   containerTag: {
     padding: 10,
-    borderRadius: 10,
-
+    borderRadius: 10
   },
   tagTitle: {
     fontFamily: FONTS.bold,
@@ -42,10 +41,26 @@ const styles = StyleSheet.create({
   tag: {
     color: COLORS.white
   },
-  containerTags:{
+  containerTags: {
     flexWrap: 'wrap',
     flexDirection: 'row',
     gap: 10
+  },
+  containerButton: {
+    marginVertical: 10
+  },
+  addToCartButton: {
+    width: '100%',
+    backgroundColor: COLORS.primary,
+    padding: 15,
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  addToCartText: {
+    fontFamily: FONTS.medium,
+    fontSize: 16,
+    color: COLORS.white
   }
 });
 

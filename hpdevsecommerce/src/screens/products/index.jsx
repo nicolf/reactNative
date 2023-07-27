@@ -4,14 +4,15 @@ import { Input } from '../../components';
 import { COLORS } from '../../themes';
 import styles from './styles';
 import { Ionicons } from '@expo/vector-icons';
-import PRODUCTS from '../../constants/data/products.json';
 import { FlatList } from 'react-native';
+import { useSelector } from 'react-redux';
 
 const Products = ({ navigation, route }) => {
   const { categoryId, color } = route.params;
   const [search, setSearch] = useState('');
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [borderColor, setBorderColor] = useState(COLORS.primary);
+  const products = useSelector((state) => state.products.data);
   const onHandleBlur = () => {};
   const onHandleChangeText = (text) => {
     setSearch(text);
@@ -19,7 +20,7 @@ const Products = ({ navigation, route }) => {
   };
   const onHandleFocus = () => {};
 
-  const filteredProductsByCategory = PRODUCTS.filter((product) => product.categoryId === categoryId);
+  const filteredProductsByCategory = products.filter((product) => product.categoryId === categoryId);
 
   const filterBySearch = (query) => {
     let updatedProductList = [...filteredProductsByCategory];
