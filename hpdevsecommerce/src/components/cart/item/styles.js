@@ -19,6 +19,7 @@ export const styles = StyleSheet.create({
     padding: 10,
     marginHorizontal: 15,
     marginTop: 15,
+    marginBottom: 5,
     justifyContent: 'space-evenly',
     alignItems: 'center',
     borderRadius: 5,

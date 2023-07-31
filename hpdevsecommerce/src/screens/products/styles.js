@@ -57,6 +57,11 @@ const styles = StyleSheet.create({
   productPrice: {
     fontSize: 15,
     fontFamily: FONTS.bold
+  },
+  containerLoader: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 });
 

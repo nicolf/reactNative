@@ -16,7 +16,12 @@ const styles = StyleSheet.create({
   listCategory: {
     gap: 15,
     paddingBottom: 20
-  }
+  },
+  containerLoader: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
 export default styles;
