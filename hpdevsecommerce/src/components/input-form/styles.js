@@ -4,7 +4,7 @@ import { COLORS, FONTS } from '../../themes';
 
 export const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 1
   },
   input: {
     height: 35,
@@ -12,16 +12,16 @@ export const styles = StyleSheet.create({
     borderBottomWidth: 1,
     width: '90%',
     fontFamily: FONTS.regular,
-    marginBottom: 5,
+    marginBottom: 5
   },
   errorContainer: {
     flex: 1,
-    marginVertical: 0,
+    paddingVerticalVertical: 5
   },
   error: {
     fontSize: 12,
     fontFamily: FONTS.regular,
     paddingVertical: 5,
-    color: COLORS.error,
-  },
+    color: COLORS.error
+  }
 });

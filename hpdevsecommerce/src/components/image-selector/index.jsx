@@ -3,7 +3,7 @@ import {
   requestMediaLibraryPermissionsAsync,
   launchImageLibraryAsync,
   launchCameraAsync,
-  requestCameraPermissionsAsync,
+  requestCameraPermissionsAsync
 } from 'expo-image-picker';
 import { useState } from 'react';
 import { TouchableOpacity, View, Text, Image, Alert } from 'react-native';
@@ -17,15 +17,12 @@ const ImageSelector = ({ profileImage, onSelect }) => {
     // const { status } = await requestMediaLibraryPermissionsAsync();
     const { status } = await requestCameraPermissionsAsync();
     if (status !== 'granted') {
-      Alert.alert('Permission Denied', 'You need to grant camera permissions to use this app.', [
-        { text: 'Okay' },
-      ]);
+      Alert.alert('Permission Denied', 'You need to grant camera permissions to use this app.', [{ text: 'Okay' }]);
       return false;
     }
     return true;
   };
 
-  console.warn({ image });
   const onHandleTakePhoto = async () => {
     // const isMediaPermission = await verifyPermissions();
     const isCameraPermission = await verifyPermissions();
@@ -41,7 +38,7 @@ const ImageSelector = ({ profileImage, onSelect }) => {
       allowsEditing: true,
       aspect: [16, 9],
       quality: 0.5,
-      base64: true,
+      base64: true
     });
 
     await onSelect({ uri: result.assets[0].uri, base64: result.assets[0].base64 });
@@ -52,11 +49,7 @@ const ImageSelector = ({ profileImage, onSelect }) => {
     <View style={styles.container}>
       <TouchableOpacity style={styles.content} onPress={onHandleTakePhoto}>
         {image || profileImage ? (
-          <Image
-            source={{ uri: image || profileImage }}
-            style={styles.image}
-            resizeMode="contain"
-          />
+          <Image source={{ uri: image || profileImage }} style={styles.image} resizeMode="contain" />
         ) : (
           <Ionicons name="ios-camera" size={24} color={COLORS.primary} />
         )}

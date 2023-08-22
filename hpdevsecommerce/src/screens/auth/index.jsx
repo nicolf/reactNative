@@ -1,13 +1,12 @@
-import { View, Text, TouchableOpacity } from 'react-native';
-import { useState, useReducer } from 'react';
-//import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useReducer, useState } from 'react';
+import { View, Text, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 import { useDispatch } from 'react-redux';
 
 import { styles } from './styles';
-import { COLORS } from '../../themes';
+import { InputForm } from '../../components';
 import { useSignInMutation, useSignUpMutation } from '../../store/auth/api';
 import { setUser } from '../../store/auth/auth.slice';
-import { InputForm } from '../../components';
+import { COLORS } from '../../themes';
 import { UPDATE_FORM, onInputChange } from '../../utils/form';
 
 const initialState = {
@@ -38,12 +37,12 @@ const formReducer = (state, action) => {
 };
 
 const Auth = () => {
+  const dispatch = useDispatch();
+  const [formState, dispatchFormState] = useReducer(formReducer, initialState);
   const [isLogin, setIsLogin] = useState(true);
   const headerTitle = isLogin ? 'Login' : 'Register';
   const buttonTitle = isLogin ? 'Login' : 'Register';
   const messageText = isLogin ? 'Need an account?' : 'Already have an account?';
-  const dispatch = useDispatch();
-  const [formState, dispatchFormState] = useReducer(formReducer, initialState);
 
   const [signIn, { data }] = useSignInMutation();
 
@@ -57,7 +56,6 @@ const Auth = () => {
           password: formState.password.value
         });
         if (result?.data) dispatch(setUser(result.data));
-        if (result?.error) console.log(result.error.data.error)
       } else {
         await signUp({ email: formState.email.value, password: formState.password.value });
       }
@@ -71,50 +69,53 @@ const Auth = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.content}>
-        <Text style={styles.header}>{headerTitle}</Text>
-        <InputForm
-          placeholder="email@domain.com"
-          placeholderTextColor={COLORS.gray}
-          autoCapitalize="none"
-          autoCorrect={false}
-          onChangeText={(text) => onHandlerInputChange({ value: text, name: 'email' })}
-          value={formState.email.value}
-          label="Email"
-          error={formState.email.error}
-          touched={formState.email.touched}
-          hasError={formState.email.hasError}
-        />
-        <InputForm
-          placeholder="*********"
-          placeholderTextColor={COLORS.gray}
-          autoCapitalize="none"
-          autoCorrect={false}
-          secureTextEntry
-          onChangeText={(text) => onHandlerInputChange({ value: text, name: 'password' })}
-          value={formState.password.value}
-          label="Password"
-          error={formState.password.error}
-          touched={formState.password.touched}
-          hasError={formState.password.hasError}
-        />
-        <View style={styles.linkContainer}>
-          <TouchableOpacity style={styles.link} onPress={() => setIsLogin(!isLogin)}>
-            <Text style={styles.linkText}>{messageText}</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            disabled={!formState.isFormValid}
-            style={!formState.isFormValid ? styles.buttonDisabled : styles.button}
-            onPress={onHandlerAuth}
-          >
-            <Text style={styles.buttonText}>{buttonTitle}</Text>
-          </TouchableOpacity>
+    <KeyboardAvoidingView style={styles.containerKeyboardAvoidingView} behavior="height">
+      <View style={styles.container}>
+        <View style={styles.content}>
+          <Text style={styles.header}>{headerTitle}</Text>
+          <InputForm
+            placeholder="email@domain.com"
+            placeholderTextColor={COLORS.gray}
+            autoCapitalize="none"
+            autoCorrect={false}
+            onChangeText={(text) => onHandlerInputChange({ value: text, name: 'email' })}
+            value={formState.email.value}
+            label="Email"
+            error={formState.email.error}
+            touched={formState.email.touched}
+            hasError={formState.email.hasError}
+          />
+          <InputForm
+            style={styles.input}
+            placeholder="*********"
+            placeholderTextColor={COLORS.gray}
+            autoCapitalize="none"
+            autoCorrect={false}
+            secureTextEntry
+            onChangeText={(text) => onHandlerInputChange({ value: text, name: 'password' })}
+            value={formState.password.value}
+            label="Password"
+            error={formState.password.error}
+            touched={formState.password.touched}
+            hasError={formState.password.hasError}
+          />
+          <View style={styles.linkContainer}>
+            <TouchableOpacity style={styles.link} onPress={() => setIsLogin(!isLogin)}>
+              <Text style={styles.linkText}>{messageText}</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity
+              disabled={!formState.isFormValid}
+              style={!formState.isFormValid ? styles.buttonDisabled : styles.button}
+              onPress={onHandlerAuth}
+            >
+              <Text style={styles.buttonText}>{buttonTitle}</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
